@@ -1,0 +1,9 @@
+POST http://localhost:8080/pizzas
+Content-Type: application/json
+
+{
+    "name": "Peperoni",
+    "description": "A pizza of pepperoni",
+    "ingredients": "pepperoni , cheese, mussalera",
+    "price": 27.44
+}

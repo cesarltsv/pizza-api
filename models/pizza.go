@@ -4,9 +4,9 @@ import "time"
 
 type Pizza struct {
 	ID          int
-	Name        string   `binding:"required"`
-	Description string   `binding:"required"`
-	Ingredients []string `binding:"required"`
+	Name        string `binding:"required"`
+	Description string `binding:"required"`
+	Ingredients string `binding:"required"`
 	CreateOn    time.Time
 	price       float64 `binding:"required"`
 }

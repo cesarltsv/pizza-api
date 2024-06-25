@@ -33,5 +33,8 @@ func createPizza(context *gin.Context) {
 
 	pizza.ID = 1
 	pizza.CreateOn = time.Now()
-	context.JSON(http.StatusCreated, gin.H{"message": "Pizza was create with success!"})
+
+	pizza.Save()
+
+	context.JSON(http.StatusCreated, pizza)
 }
