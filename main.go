@@ -5,10 +5,12 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"pizzas.com/api/db"
 	"pizzas.com/api/models"
 )
 
 func main() {
+	db.InitDB()
 	server := gin.Default()
 
 	server.GET("/pizzas", HomeController)
