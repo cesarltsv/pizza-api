@@ -1,9 +1,13 @@
 package models
 
-import "time"
+import (
+	"time"
+
+	"pizzas.com/api/db"
+)
 
 type Pizza struct {
-	ID          int
+	ID          int64
 	Name        string `binding:"required"`
 	Description string `binding:"required"`
 	Ingredients string `binding:"required"`
@@ -13,9 +17,25 @@ type Pizza struct {
 
 var pizzas = []Pizza{}
 
-func (p Pizza) Save() {
-	// TODO: add logic
-	pizzas = append(pizzas, p)
+func (p Pizza) Save() error {
+	query := `
+		INSERT INTO pizzas(name, description, ingredients, createOn, price)
+		VALUES (?, ?, ?, ?, ?)
+	`
+
+	stmt, err := db.DB.Prepare(query)
+	if err != nil {
+		return err
+	}
+	defer stmt.Close()
+
+	result, err := stmt.Exec(p.Name, p.Description, p.Ingredients, p.CreateOn, p.price)
+	if err != nil {
+		return err
+	}
+	id, err := result.LastInsertId()
+	p.ID = id
+	return err
 }
 
 func GetAllPizzas() []Pizza {
